@@ -27,7 +27,7 @@
             <td>${customer.name}</td>
             <td>${customer.address}</td>
             <td>${customer.email}</td>
-            <td>Edit</td>
+            <td><a href="/CustomerServlet?action=edit&id=${customer.id}">Edit</a></td>
             <td>remove</td>
         </tr>
     </c:forEach>

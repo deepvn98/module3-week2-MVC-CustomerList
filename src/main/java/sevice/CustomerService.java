@@ -8,11 +8,11 @@ import java.util.List;
 public class CustomerService implements CustomerInterface{
     private static List<Customer> customerList = new ArrayList<>();
     static { ;
-        Customer customer1 = new Customer(1,"Híu","Bắc Ninh","123@gmail.com");
-        Customer customer2 = new Customer(2,"Sáng","Bắc Giang","123@gmail.com");
-        Customer customer3 = new Customer(3,"Lực","Mỹ Đức","123@gmail.com");
-        Customer customer4 = new Customer(4,"Công","Thường Tín","123@gmail.com");
-        Customer customer5 = new Customer(5,"Hà","Sóc Sơn","123@gmail.com");
+        Customer customer1 = new Customer(1,"Hiu","Bac Ninh","123@gmail.com");
+        Customer customer2 = new Customer(2,"Sang","Bac Giang","123@gmail.com");
+        Customer customer3 = new Customer(3,"Luc","My Duc","123@gmail.com");
+        Customer customer4 = new Customer(4,"Cong","Thuong Tin","123@gmail.com");
+        Customer customer5 = new Customer(5,"Ha","Soc Son","123@gmail.com");
         customerList.add(customer1);
         customerList.add(customer2);
         customerList.add(customer3);

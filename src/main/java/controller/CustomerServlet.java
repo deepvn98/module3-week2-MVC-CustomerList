@@ -22,19 +22,41 @@ public class CustomerServlet extends HttpServlet {
         }
         switch (action){
             case "create":
-                ShowFormCreate(request,response);
+                showFormCreate(request,response);
+                break;
 
             case "edit":
-
+                showFormEdit(request, response);
+                break;
             case "delete":
+                break;
 
             default:
-                DisplayAll(request, response);
+                displayAll(request, response);
+                break;
         }
 
     }
+//Hiển thị form sửa thông tin khách hàng
+    private void showFormEdit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("customerapp/edit.jsp");
+        int index = Integer.parseInt(request.getParameter("id"));
+        Customer customer = customerService.findById(index-1);
+        request.setAttribute("customer",customer);
+        dispatcher.forward(request,response);
+    }
+//    Sửa Thôgn tin khách hàng
+    private void edit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int index = Integer.parseInt(request.getParameter("id"));
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String email = request.getParameter("email");
+        Customer customer = new Customer(index,name,address,email);
+        customerService.update(index-1,customer);
+        response.sendRedirect("/CustomerServlet");
+    }
 
-    private void ShowFormCreate(HttpServletRequest request,HttpServletResponse response) {
+    private void showFormCreate(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("customerapp/create.jsp");
         try {
             requestDispatcher.forward(request,response);
@@ -46,7 +68,7 @@ public class CustomerServlet extends HttpServlet {
     }
 
     //    Thêm Khách hàng mới vào danh sách
-    private void CreateNewCustomer(HttpServletRequest request,HttpServletResponse response) {
+    private void createNewCustomer(HttpServletRequest request, HttpServletResponse response) {
         int id = (int) Math.random()*100;
         String name = request.getParameter("name");
         String address = request.getParameter("address");
@@ -62,7 +84,7 @@ public class CustomerServlet extends HttpServlet {
 
 
 //Hiển thị danh sách khách hàng
-    private void DisplayAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    private void displayAll(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("customerapp/list.jsp");
         List<Customer> customerList = customerService.findAll();
         request.setAttribute("cay",customerList);
@@ -77,15 +99,16 @@ public class CustomerServlet extends HttpServlet {
         }
         switch (action){
             case "create":
-                CreateNewCustomer(request,response);
+                createNewCustomer(request,response);
                 break;
             case "edit":
+                    edit(request,response);
                 break;
 
             case "delete":
                 break;
             default:
-                DisplayAll(request, response);
+                displayAll(request, response);
                 break;
         }
 
