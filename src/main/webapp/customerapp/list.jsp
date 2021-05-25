@@ -28,7 +28,7 @@
             <td>${customer.address}</td>
             <td>${customer.email}</td>
             <td><a href="/CustomerServlet?action=edit&id=${customer.id}">Edit</a></td>
-            <td>remove</td>
+            <td><a href="/CustomerServlet?action=delete&id=${customer.id}">remove</a></td>
         </tr>
     </c:forEach>
 

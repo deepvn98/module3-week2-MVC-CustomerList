@@ -29,6 +29,7 @@ public class CustomerServlet extends HttpServlet {
                 showFormEdit(request, response);
                 break;
             case "delete":
+                showFormDeleteCustomer(request,response);
                 break;
 
             default:
@@ -91,7 +92,28 @@ public class CustomerServlet extends HttpServlet {
         requestDispatcher.forward(request, response);
     }
 
-    @Override
+    private void showFormDeleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/customerapp/delete.jsp");
+        int idex = Integer.parseInt(request.getParameter("id"));
+        Customer customer = customerService.findById(idex-1);
+        request.setAttribute("customer", customer);
+        requestDispatcher.forward(request,response);
+    }
+
+
+    private void deleteCustomer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int index =Integer.parseInt(request.getParameter("id"));
+        Customer customer = customerService.findById(index);
+        if (customer!=null){
+            customerService.remove(index-1);
+            response.sendRedirect("/CustomerServlet");
+        }else {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("error-404.jsp");
+        }
+    }
+
+
+        @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
         if (action == null){
@@ -104,8 +126,8 @@ public class CustomerServlet extends HttpServlet {
             case "edit":
                     edit(request,response);
                 break;
-
             case "delete":
+                deleteCustomer(request,response);
                 break;
             default:
                 displayAll(request, response);

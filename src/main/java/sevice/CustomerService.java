@@ -46,6 +46,5 @@ public class CustomerService implements CustomerInterface{
     @Override
     public void remove(int id) {
         customerList.remove(customerList.get(id));
-
     }
 }
